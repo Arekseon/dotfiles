@@ -1,6 +1,12 @@
 ---
 # Dotfiles role: clone/pull dotfiles repo and create symlinks
 
+- name: Configure git safe directory
+  git_config:
+    name: safe.directory
+    value: "{{ dotfiles_dir }}"
+    scope: global
+
 - name: Check if dotfiles repo exists
   stat:
     path: "{{ dotfiles_dir }}/.git"
