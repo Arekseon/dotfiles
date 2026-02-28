@@ -56,3 +56,19 @@
     path: "{{ lookup('env', 'HOME') }}/.zsh"
     state: directory
     mode: '0755'
+
+- name: Validate zsh config syntax
+  shell: "zsh -n {{ lookup('env', 'HOME') }}/.zshrc"
+  changed_when: false
+  failed_when: false
+  when: shell == "zsh"
+
+- name: Validate bash config syntax
+  shell: "bash -n {{ lookup('env', 'HOME') }}/.bashrc"
+  changed_when: false
+  failed_when: false
+  when: shell == "bash"
+
+- name: Display reload reminder
+  debug:
+    msg: "✅ Dotfiles updated! Please restart your shell or run: exec $SHELL"

@@ -39,6 +39,8 @@ alias ll='ls -FGlAhp'
 alias la='ls -A'
 alias l='ls -CF'
 
+alias RELOAD_BASHRC='exec bash'
+
 # --- CLI alternatives ---
 CLI_ALTERNATIVES=(
     "bat > cat"
