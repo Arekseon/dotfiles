@@ -1,0 +1,86 @@
+# .bashrc - sourced by interactive bash shells (non-login)
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# --- History ---
+HISTSIZE=50000
+HISTFILESIZE=50000
+HISTCONTROL=ignoreboth
+shopt -s histappend
+
+# --- Window size ---
+shopt -s checkwinsize
+
+# --- Navigation ---
+shopt -s autocd 2>/dev/null  # Bash 4+ only
+
+# --- Editor ---
+export EDITOR=nano
+export VISUAL=nano
+
+# --- Colors (ls, grep) ---
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+fi
+
+# --- Safe aliases ---
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# --- Nice aliases ---
+alias ll='ls -FGlAhp'
+alias la='ls -A'
+alias l='ls -CF'
+
+# --- Functions ---
+mkcd() { mkdir -p "$1" && cd "$1"; }
+
+extract() {
+    if [ -f "$1" ]; then
+        case "$1" in
+            *.tar.bz2) tar xjf "$1" ;;
+            *.tar.gz) tar xzf "$1" ;;
+            *.bz2) bunzip2 "$1" ;;
+            *.rar) unrar e "$1" ;;
+            *.gz) gunzip "$1" ;;
+            *.tar) tar xf "$1" ;;
+            *.tbz2) tar xjf "$1" ;;
+            *.tgz) tar xzf "$1" ;;
+            *.zip) unzip "$1" ;;
+            *.Z) uncompress "$1" ;;
+            *.7z) 7z x "$1" ;;
+            *) echo "'$1' cannot be extracted" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+# --- Completion ---
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
+fi
+
+# --- Starship prompt ---
+if command -v starship &>/dev/null; then
+    eval "$(starship init bash)"
+fi
+
+# --- SSH welcome ---
+if [[ -n "$SSH_CONNECTION" && -z "$BASH_SSH_WELCOME_SHOWN" ]]; then
+    export BASH_SSH_WELCOME_SHOWN=1
+    if [[ -f ~/.bash_welcome ]]; then
+        source ~/.bash_welcome
+    fi
+fi

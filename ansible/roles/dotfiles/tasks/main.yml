@@ -1,0 +1,41 @@
+---
+# Dotfiles role: clone/pull dotfiles repo and create symlinks
+
+- name: Check if dotfiles repo exists
+  stat:
+    path: "{{ dotfiles_dir }}/.git"
+  register: dotfiles_repo
+
+- name: Clone dotfiles repo (first time)
+  git:
+    repo: "{{ dotfiles_repo_url }}"
+    dest: "{{ dotfiles_dir }}"
+    version: main
+    force: yes
+  when: not dotfiles_repo.stat.exists
+
+- name: Update dotfiles repo (if exists)
+  git:
+    repo: "{{ dotfiles_repo_url }}"
+    dest: "{{ dotfiles_dir }}"
+    update: yes
+    force: yes
+  when: dotfiles_repo.stat.exists
+
+- name: Create symlinks for dotfiles
+  file:
+    src: "{{ dotfiles_dir }}/{{ item }}"
+    path: "{{ lookup('env', 'HOME') }}/{{ item }}"
+    state: link
+    force: yes
+  loop:
+    - .zshenv
+    - .zshrc
+    - .bashrc
+    - .tmux.conf
+
+- name: Ensure .zsh directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.zsh"
+    state: directory
+    mode: '0755'

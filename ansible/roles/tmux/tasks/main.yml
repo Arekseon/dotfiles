@@ -1,0 +1,27 @@
+---
+# Tmux role: ensure tmux is installed and configured
+
+- name: Install tmux (Debian/Ubuntu)
+  apt:
+    name: tmux
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: Install tmux (macOS)
+  homebrew:
+    name: tmux
+    state: present
+  when: ansible_facts['os_family'] == "Darwin"
+
+- name: Create tmux plugin directory
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
+    state: directory
+    mode: '0755'
+
+- name: Clone TPM (Tmux Plugin Manager)
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
+    depth: 1
+  ignore_errors: yes

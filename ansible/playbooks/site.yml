@@ -1,0 +1,19 @@
+---
+# Main playbook: deploy dotfiles and configure machines
+
+- name: Configure all hosts
+  hosts: all
+  gather_facts: true
+  roles:
+    - dotfiles
+    - packages
+    - shell
+    - tmux
+
+- name: Configure servers with bash (specific)
+  hosts: linux_bash
+  gather_facts: true
+  vars:
+    shell: bash
+  roles:
+    - shell

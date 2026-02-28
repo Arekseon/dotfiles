@@ -1,0 +1,31 @@
+---
+# Common variables for all hosts
+
+# User to run as (should match ansible_user in inventory)
+ansible_user: pk
+
+# Dotfiles location (where this repo is cloned)
+dotfiles_dir: "{{ lookup('env', 'HOME') }}/dotfiles"
+
+# Shell to use (zsh or bash)
+shell: zsh
+
+# Packages to install (common across all)
+common_packages:
+  - git
+  - curl
+  - wget
+  - tmux
+  - nano
+  - tree
+
+# Mac-specific packages (via Homebrew)
+mac_packages:
+  - starship
+  - zsh-syntax-highlighting
+  - zsh-autosuggestions
+
+# Linux-specific packages (apt)
+linux_packages:
+  - build-essential
+  - starship
