@@ -32,11 +32,15 @@ mac_packages:
   - eza
   - fd
   - ripgrep
+  - figlet
+  - lolcat
 
 # Linux-specific packages (apt)
 linux_packages:
   - build-essential
   - starship
+  - figlet
+  - lolcat
   - bat
   - eza
   - ripgrep
