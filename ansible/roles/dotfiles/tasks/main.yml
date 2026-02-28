@@ -30,14 +30,14 @@
 
 - name: Ensure .zsh directory exists in home
   file:
-    path: "{{ ansible_user_dir }}/.zsh"
+    path: "{{ ansible_facts['user_dir'] }}/.zsh"
     state: directory
     mode: '0755'
 
 - name: Create symlinks for dotfiles
   file:
     src: "{{ dotfiles_dir }}/{{ item.src }}"
-    path: "{{ ansible_user_dir }}/{{ item.dest }}"
+    path: "{{ ansible_facts['user_dir'] }}/{{ item.dest }}"
     state: link
     force: yes
   loop:
@@ -50,7 +50,7 @@
 
 - name: Create ghostty config directory (macOS desktop)
   file:
-    path: "{{ ansible_user_dir }}/Library/Application Support/com.mitchellh.ghostty"
+    path: "{{ ansible_facts['user_dir'] }}/Library/Application Support/com.mitchellh.ghostty"
     state: directory
     mode: '0755'
   when: ansible_facts['os_family'] == "Darwin"
@@ -58,19 +58,19 @@
 - name: Symlink ghostty config (macOS)
   file:
     src: "{{ dotfiles_dir }}/ghostty.config"
-    path: "{{ ansible_user_dir }}/Library/Application Support/com.mitchellh.ghostty/config"
+    path: "{{ ansible_facts['user_dir'] }}/Library/Application Support/com.mitchellh.ghostty/config"
     state: link
     force: yes
   when: ansible_facts['os_family'] == "Darwin"
 
 - name: Validate zsh config syntax
-  shell: "zsh -n {{ ansible_user_dir }}/.zshrc"
+  shell: "zsh -n {{ ansible_facts['user_dir'] }}/.zshrc"
   changed_when: false
   failed_when: false
   when: shell == "zsh"
 
 - name: Validate bash config syntax
-  shell: "bash -n {{ ansible_user_dir }}/.bashrc"
+  shell: "bash -n {{ ansible_facts['user_dir'] }}/.bashrc"
   changed_when: false
   failed_when: false
   when: shell == "bash"

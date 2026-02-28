@@ -12,19 +12,19 @@
     name: tmux
     state: present
   become: yes
-  become_user: "{{ become_user }}"
+  become_user: "{{ sudo_user }}"
   become_method: su
   when: ansible_facts['os_family'] == "Darwin"
 
 - name: Create tmux plugin directory
   file:
-    path: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
+    path: "{{ ansible_facts['user_dir'] }}/.tmux/plugins/tpm"
     state: directory
     mode: '0755'
 
 - name: Clone TPM (Tmux Plugin Manager)
   git:
     repo: https://github.com/tmux-plugins/tpm
-    dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
+    dest: "{{ ansible_facts['user_dir'] }}/.tmux/plugins/tpm"
     depth: 1
   ignore_errors: yes

@@ -5,10 +5,10 @@
 ansible_user: pk
 
 # User for sudo operations (Homebrew, etc.)
-become_user: "{{ ansible_user }}"
+sudo_user: "{{ ansible_user }}"
 
 # Dotfiles location (where this repo is cloned)
-dotfiles_dir: "{{ ansible_user_dir }}/dotfiles"
+dotfiles_dir: "{{ ansible_facts['user_dir'] }}/dotfiles"
 
 # Shell to use (zsh or bash)
 shell: zsh
