@@ -8,7 +8,7 @@ ansible_user: pk
 become_user: "{{ ansible_user }}"
 
 # Dotfiles location (where this repo is cloned)
-dotfiles_dir: "{{ lookup('env', 'HOME') }}/dotfiles"
+dotfiles_dir: "{{ ansible_user_dir }}/dotfiles"
 
 # Shell to use (zsh or bash)
 shell: zsh

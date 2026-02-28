@@ -18,13 +18,13 @@
 
 - name: Create tmux plugin directory
   file:
-    path: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
+    path: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
     state: directory
     mode: '0755'
 
 - name: Clone TPM (Tmux Plugin Manager)
   git:
     repo: https://github.com/tmux-plugins/tpm
-    dest: "{{ lookup('env', 'HOME') }}/.tmux/plugins/tpm"
+    dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
     depth: 1
   ignore_errors: yes
