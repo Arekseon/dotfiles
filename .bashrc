@@ -53,6 +53,15 @@ alternatives() {
     done
 }
 
+# --- IP address (cross-platform) ---
+ip() {
+    if [[ "$(uname)" == "Darwin" ]]; then
+        ifconfig | awk '$1=="inet" && $2!="127.0.0.1" {print $2}'
+    else
+        hostname -I
+    fi
+}
+
 # --- Functions ---
 mkcd() { mkdir -p "$1" && cd "$1"; }
 

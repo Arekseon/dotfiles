@@ -69,6 +69,15 @@ alternatives() {
     done
 }
 
+# --- IP address (cross-platform) ---
+ip() {
+    if [[ "$(uname)" == "Darwin" ]]; then
+        ifconfig | awk '$1=="inet" && $2!="127.0.0.1" {print $2}'
+    else
+        hostname -I
+    fi
+}
+
 # --- Update dotfiles ---
 update-dotfiles() {
     local dotfiles_dir="$HOME/dotfiles"
