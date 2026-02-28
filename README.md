@@ -1,6 +1,6 @@
 # dotfiles
 
-My shell configuration for consistent terminal experience across MacBooks and Linux servers.
+My shell configuration for consistent terminal experience across Mac and Linux machines.
 
 ## What's included
 
@@ -65,7 +65,7 @@ ansible-playbook -i inventory.ini playbooks/site.yml --ask-become-pass
 Edit `ansible/inventory.ini` to add your machines:
 
 ```ini
-[macbooks]
+[mac]
 mba_m4     ansible_host=10.0.1.100 ansible_user=pk
 macmini    ansible_host=10.0.1.101 ansible_user=pk
 

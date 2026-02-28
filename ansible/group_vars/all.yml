@@ -18,6 +18,10 @@ common_packages:
   - tmux
   - nano
   - tree
+  - bat
+  - eza
+  - fd
+  - ripgrep
 
 # Mac-specific packages (via Homebrew)
 mac_packages:

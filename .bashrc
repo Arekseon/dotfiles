@@ -39,6 +39,20 @@ alias ll='ls -FGlAhp'
 alias la='ls -A'
 alias l='ls -CF'
 
+# --- CLI alternatives ---
+CLI_ALTERNATIVES=(
+    "bat > cat"
+    "eza > ls"
+    "fd > find"
+    "rg > grep"
+)
+alternatives() {
+    echo "Consider upgrading these commands:"
+    for alt in "${CLI_ALTERNATIVES[@]}"; do
+        echo "  $alt"
+    done
+}
+
 # --- Functions ---
 mkcd() { mkdir -p "$1" && cd "$1"; }
 

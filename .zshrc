@@ -55,6 +55,20 @@ alias less='less -FSRXc'
 # --- Ghostty ---
 alias ghostty-terminfo='infocmp -x xterm-ghostty | ssh $1 "tic -x -"'
 
+# --- CLI alternatives ---
+CLI_ALTERNATIVES=(
+    "bat > cat"
+    "eza > ls"
+    "fd > find"
+    "rg > grep"
+)
+alternatives() {
+    echo "Consider upgrading these commands:"
+    for alt in "${CLI_ALTERNATIVES[@]}"; do
+        echo "  $alt"
+    done
+}
+
 # --- Update dotfiles ---
 update-dotfiles() {
     local dotfiles_dir="$HOME/dotfiles"
