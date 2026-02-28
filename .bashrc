@@ -41,6 +41,22 @@ alias l='ls -CF'
 
 alias RELOAD_BASHRC='source ~/.bashrc'
 
+# --- Edit configs ---
+edit() {
+    local editor
+    if [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]]; then
+        editor="nano"
+    elif command -v subl &>/dev/null; then
+        editor="subl"
+    else
+        editor="nano"
+    fi
+    $editor "$@"
+}
+
+alias BASHRCCING='edit ~/.bashrc && source ~/.bashrc'
+alias GHOSTTY_CONFIG='edit ~/Library/Application\ Support/com.mitchellh.ghostty/config 2>/dev/null || echo "Ghostty config not found"'
+
 # --- CLI alternatives ---
 CLI_ALTERNATIVES=(
     "bat > cat"

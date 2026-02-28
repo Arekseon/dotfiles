@@ -54,6 +54,23 @@ alias less='less -FSRXc'
 
 alias RELOAD_ZSHRC='source ~/.zshrc'
 
+# --- Edit configs ---
+# Determine editor: nano for SSH, sublime for local desktop
+edit() {
+    local editor
+    if [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]]; then
+        editor="nano"
+    elif command -v subl &>/dev/null; then
+        editor="subl"
+    else
+        editor="nano"
+    fi
+    $editor "$@"
+}
+
+alias ZSHRCING='edit ~/.zshrc && source ~/.zshrc'
+alias GHOSTTY_CONFIG='edit ~/Library/Application\ Support/com.mitchellh.ghostty/config 2>/dev/null || echo "Ghostty config not found"'
+
 # --- Ghostty ---
 alias ghostty-terminfo='infocmp -x xterm-ghostty | ssh $1 "tic -x -"'
 
