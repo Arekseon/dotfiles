@@ -22,6 +22,24 @@
   when: os_family == "Darwin"
   ignore_errors: yes
 
+# --- fd (not in apt) ---
+- name: Install fd (Linux)
+  unarchive:
+    src: https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-gnu.tar.gz
+    dest: /tmp
+    remote_src: yes
+    creates: /usr/local/bin/fd
+  when: os_family == "Debian"
+
+- name: Move fd binary
+  copy:
+    src: /tmp/fd-v10.2.0-x86_64-unknown-linux-gnu/fd
+    dest: /usr/local/bin/fd
+    remote_src: yes
+    mode: '0755'
+  when: os_family == "Debian"
+
+# --- Starship ---
 - name: Install starship via script (Linux)
   get_url:
     url: https://starship.rs/install.sh

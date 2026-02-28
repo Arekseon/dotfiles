@@ -18,18 +18,22 @@ common_packages:
   - tmux
   - nano
   - tree
-  - bat
-  - eza
-  - fd
-  - ripgrep
+  # Note: fd installed separately (not in apt)
 
 # Mac-specific packages (via Homebrew)
 mac_packages:
   - starship
   - zsh-syntax-highlighting
   - zsh-autosuggestions
+  - bat
+  - eza
+  - fd
+  - ripgrep
 
 # Linux-specific packages (apt)
 linux_packages:
   - build-essential
   - starship
+  - bat
+  - eza
+  - ripgrep
