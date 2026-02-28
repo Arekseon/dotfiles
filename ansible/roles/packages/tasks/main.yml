@@ -17,7 +17,7 @@
     name: "{{ common_packages + mac_packages }}"
     state: present
   become: yes
-  become_user: pk
+  become_user: "{{ become_user }}"
   become_method: su
   when: os_family == "Darwin"
   ignore_errors: yes
@@ -57,7 +57,7 @@
     name: starship
     state: present
   become: yes
-  become_user: pk
+  become_user: "{{ become_user }}"
   become_method: su
   when: os_family == "Darwin"
   ignore_errors: yes

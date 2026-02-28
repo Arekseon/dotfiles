@@ -4,6 +4,9 @@
 # User to run as (should match ansible_user in inventory)
 ansible_user: pk
 
+# User for sudo operations (Homebrew, etc.)
+become_user: "{{ ansible_user }}"
+
 # Dotfiles location (where this repo is cloned)
 dotfiles_dir: "{{ lookup('env', 'HOME') }}/dotfiles"
 
