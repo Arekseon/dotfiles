@@ -53,6 +53,7 @@
     - { src: '.tmux.conf', dest: '.tmux.conf' }
     - { src: '.zsh/welcome.zsh', dest: '.zsh/welcome.zsh' }
     - { src: '.zsh/welcome-ssh.zsh', dest: '.zsh/welcome-ssh.zsh' }
+    - { src: '.zsh/welcome.d', dest: '.zsh/welcome.d' }
 
 - name: Create ghostty config directory (macOS desktop)
   file:

@@ -9,44 +9,12 @@ hr() { print -P "%F{240}──────────────────�
 section() { print -P "%F{cyan}$1%f"; }
 kv() { printf "  %-16s %s\n" "$1:" "$2"; }
 
-HOST=$(hostname -s)
-DATE_NOW=$(date +"%Y-%m-%d %H:%M")
-OS_NAME="macOS $(sw_vers -productVersion 2>/dev/null)"
-
-UPTIME=$(uptime | sed 's/.*up \([^,]*\),.*/\1/')
-
-LOAD=$(sysctl -n vm.loadavg 2>/dev/null | tr -d '{},' | awk '{print $1" "$2" "$3}')
-
-CPU=$(sysctl -n machdep.cpu.brand_string 2>/dev/null)
-
-MEM_BYTES=$(sysctl -n hw.memsize 2>/dev/null)
-MEM_GIB=$(( MEM_BYTES / 1024 / 1024 / 1024 ))
-
-DISK_ROOT=$(df -h / | awk 'NR==2{print $3 " used / " $2 " total (" $5 ")"}')
-
-IPS=$(ifconfig | awk '
-  $1=="inet" && $2!="127.0.0.1" {print $2}
-' | paste -sd ", " -)
-
-WHO_COUNT=$(who | wc -l | tr -d ' ')
-
-print -P "%F{green}Welcome back, %n%f  %F{240}(${DATE_NOW})%f"
+print -P "%F{green}Welcome back, %n%f  %F{240}($(date +"%Y-%m-%d %H:%M"))%f"
 hr
 
-section "System"
-kv "Host"    "$HOST"
-kv "OS"      "$OS_NAME"
-[[ -n "$CPU" ]] && kv "CPU" "$CPU"
-kv "Uptime"  "$UPTIME"
-kv "Load"    "${LOAD:-N/A}"
-kv "Memory"  "${MEM_GIB} GiB"
-kv "Disk /"  "$DISK_ROOT"
-kv "IP"      "${IPS:-N/A}"
-
-section "Session"
-kv "User"    "$USER"
-kv "Logins"  "$WHO_COUNT"
-kv "Shell"   "$SHELL"
-kv "Terminal" "${TERM:-unknown}"
+# Source all welcome.d scripts
+for script in ~/.zsh/welcome.d/*.sh; do
+    [[ -f "$script" ]] && source "$script"
+done
 
 hr
