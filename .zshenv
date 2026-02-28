@@ -1,6 +1,9 @@
 # .zshenv - sourced by all zsh invocations (login, interactive, scripts)
 # Keep minimal - this runs for EVERY zsh process
 
+# Ensure we start in home directory
+cd ~ 2>/dev/null || true
+
 # User-local binaries
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
