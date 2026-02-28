@@ -24,15 +24,16 @@
 
 - name: Create symlinks for dotfiles
   file:
-    src: "{{ dotfiles_dir }}/{{ item }}"
-    path: "{{ lookup('env', 'HOME') }}/{{ item }}"
+    src: "{{ dotfiles_dir }}/{{ item.src }}"
+    path: "{{ lookup('env', 'HOME') }}/{{ item.dest }}"
     state: link
     force: yes
   loop:
-    - .zshenv
-    - .zshrc
-    - .bashrc
-    - .tmux.conf
+    - { src: '.zshenv', dest: '.zshenv' }
+    - { src: '.zshrc', dest: '.zshrc' }
+    - { src: '.bashrc', dest: '.bashrc' }
+    - { src: '.tmux.conf', dest: '.tmux.conf' }
+    - { src: '.zsh/welcome.zsh', dest: '.zsh/welcome.zsh' }
 
 - name: Ensure .zsh directory exists
   file:

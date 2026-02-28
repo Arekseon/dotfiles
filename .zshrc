@@ -133,4 +133,9 @@ if [[ -n "$SSH_CONNECTION" || -n "$SSH_TTY" ]]; then
     if [[ -f ~/.zsh/welcome-ssh.zsh ]]; then
         source ~/.zsh/welcome-ssh.zsh
     fi
+else
+    # Local interactive shell welcome
+    if [[ -f ~/.zsh/welcome.zsh ]]; then
+        source ~/.zsh/welcome.zsh
+    fi
 fi
