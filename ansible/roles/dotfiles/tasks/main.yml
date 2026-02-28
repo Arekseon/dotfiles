@@ -34,6 +34,7 @@
     - { src: '.bashrc', dest: '.bashrc' }
     - { src: '.tmux.conf', dest: '.tmux.conf' }
     - { src: '.zsh/welcome.zsh', dest: '.zsh/welcome.zsh' }
+    - { src: '.zsh/welcome-ssh.zsh', dest: '.zsh/welcome-ssh.zsh' }
 
 - name: Ensure .zsh directory exists
   file:
