@@ -52,7 +52,7 @@ alias la='ls -AG'
 alias l='ls -CFGal'
 alias less='less -FSRXc'
 
-alias RELOAD_ZSHRC='exec zsh'
+alias RELOAD_ZSHRC='source ~/.zshrc'
 
 # --- Ghostty ---
 alias ghostty-terminfo='infocmp -x xterm-ghostty | ssh $1 "tic -x -"'

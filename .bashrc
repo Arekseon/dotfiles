@@ -39,7 +39,7 @@ alias ll='ls -FGlAhp'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias RELOAD_BASHRC='exec bash'
+alias RELOAD_BASHRC='source ~/.bashrc'
 
 # --- CLI alternatives ---
 CLI_ALTERNATIVES=(
