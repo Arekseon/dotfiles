@@ -1,18 +1,13 @@
 ---
 # Packages role: install required packages
 
-- name: Detect OS family
-  ansible.builtin.setup:
-    gather_facts: false
-  register: facts
-
 - name: Set OS family fact
   set_fact:
     os_family: "{{ ansible_facts['os_family'] }}"
 
 - name: Install packages on Debian/Ubuntu
   apt:
-    name: "{{ common_packages + linux_packages }}"
+    name: "{{ common_packages }}"
     state: present
     update_cache: yes
   when: os_family == "Debian"
@@ -21,16 +16,30 @@
   homebrew:
     name: "{{ common_packages + mac_packages }}"
     state: present
+  become: yes
+  become_user: pk
+  become_method: su
   when: os_family == "Darwin"
   ignore_errors: yes
 
-- name: Install starship prompt (all platforms)
+- name: Install starship via script (Linux)
   get_url:
     url: https://starship.rs/install.sh
     dest: /tmp/starship-install.sh
     mode: '0755'
   register: starship_install
+  when: os_family == "Debian"
 
-- name: Run starship installer
+- name: Run starship installer (Linux)
   shell: /tmp/starship-install.sh -y
   when: starship_install.changed
+
+- name: Install starship via Homebrew (macOS)
+  homebrew:
+    name: starship
+    state: present
+  become: yes
+  become_user: pk
+  become_method: su
+  when: os_family == "Darwin"
+  ignore_errors: yes

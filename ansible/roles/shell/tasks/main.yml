@@ -7,10 +7,9 @@
     state: present
   when: shell == "zsh" and ansible_facts['os_family'] == "Debian"
 
-- name: Install zsh (macOS)
-  homebrew:
-    name: zsh
-    state: present
+- name: Install zsh (macOS) -- pre-installed on macOS Catalina+
+  debug:
+    msg: "zsh is pre-installed on macOS"
   when: shell == "zsh" and ansible_facts['os_family'] == "Darwin"
 
 - name: Get current shell
