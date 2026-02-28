@@ -1,11 +1,11 @@
 #!/bin/bash
 # Bootstrap script: run on a new machine to set up dotfiles
-# Usage: curl -sL https://raw.githubusercontent.com/YOUR_USER/dotfiles/main/install.sh | bash
+# Usage: curl -sL https://raw.githubusercontent.com/arekseon/dotfiles/main/install.sh | bash
 
 set -e
 
 DOTFILES_DIR="$HOME/dotfiles"
-REPO_URL="${DOTFILES_REPO_URL:-https://github.com/YOUR_USERNAME/dotfiles.git}"
+REPO_URL="${DOTFILES_REPO_URL:-https://github.com/arekseon/dotfiles.git}"
 
 echo "==> Cloning dotfiles repo..."
 if [[ -d "$DOTFILES_DIR" ]]; then

@@ -36,6 +36,21 @@
     - { src: '.zsh/welcome.zsh', dest: '.zsh/welcome.zsh' }
     - { src: '.zsh/welcome-ssh.zsh', dest: '.zsh/welcome-ssh.zsh' }
 
+- name: Create ghostty config directory (macOS desktop)
+  file:
+    path: "{{ lookup('env', 'HOME') }}/Library/Application Support/com.mitchellh.ghostty"
+    state: directory
+    mode: '0755'
+  when: ansible_facts['os_family'] == "Darwin"
+
+- name: Symlink ghostty config (macOS)
+  file:
+    src: "{{ dotfiles_dir }}/ghostty.config"
+    path: "{{ lookup('env', 'HOME') }}/Library/Application Support/com.mitchellh.ghostty/config"
+    state: link
+    force: yes
+  when: ansible_facts['os_family'] == "Darwin"
+
 - name: Ensure .zsh directory exists
   file:
     path: "{{ lookup('env', 'HOME') }}/.zsh"

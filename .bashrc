@@ -42,6 +42,35 @@ alias l='ls -CF'
 # --- Functions ---
 mkcd() { mkdir -p "$1" && cd "$1"; }
 
+# --- Update dotfiles ---
+update-dotfiles() {
+    local dotfiles_dir="$HOME/dotfiles"
+    local repo_url="${DOTFILES_REPO_URL:-https://github.com/arekseon/dotfiles.git}"
+
+    if [[ -d "$dotfiles_dir/.git" ]]; then
+        echo "==> Checking for dotfiles updates..."
+        cd "$dotfiles_dir"
+        git fetch origin main
+        LOCAL=$(git rev-parse HEAD)
+        REMOTE=$(git rev-parse origin/main)
+        
+        if [[ "$LOCAL" == "$REMOTE" ]]; then
+            echo "    Dotfiles are up to date."
+            return 0
+        fi
+        
+        echo "    Updates available, pulling..."
+        git pull
+    else
+        echo "==> Cloning dotfiles..."
+        git clone "$repo_url" "$dotfiles_dir"
+    fi
+
+    echo "==> Running ansible locally..."
+    cd "$dotfiles_dir/ansible"
+    ansible-playbook -i "localhost," playbooks/site.yml -c local --ask-become-pass
+}
+
 extract() {
     if [ -f "$1" ]; then
         case "$1" in
