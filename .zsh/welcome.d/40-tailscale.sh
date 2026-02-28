@@ -5,7 +5,7 @@ if ! command -v tailscale &>/dev/null; then
     return 0
 fi
 
-TAILSCALE_STATUS=$(tailscale status --json 2>/dev/null | grep -o '"BackendState":"[^"]*"' | cut -d'"' -f4)
+TAILSCALE_STATUS=$(tailscale status --json 2>/dev/null | grep -o '"BackendState": "[^"]*"' | cut -d'"' -f4)
 
 if [[ -z "$TAILSCALE_STATUS" ]]; then
     return 0
