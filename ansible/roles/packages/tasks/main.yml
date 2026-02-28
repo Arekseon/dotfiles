@@ -10,6 +10,7 @@
     name: "{{ common_packages }}"
     state: present
     update_cache: yes
+  become: yes
   when: os_family == "Debian"
 
 - name: Install packages on macOS (Homebrew)
@@ -29,6 +30,7 @@
     dest: /tmp
     remote_src: yes
     creates: /usr/local/bin/fd
+  become: yes
   when: os_family == "Debian"
 
 - name: Move fd binary
@@ -37,6 +39,7 @@
     dest: /usr/local/bin/fd
     remote_src: yes
     mode: '0755'
+  become: yes
   when: os_family == "Debian"
 
 # --- Starship ---
@@ -45,11 +48,13 @@
     url: https://starship.rs/install.sh
     dest: /tmp/starship-install.sh
     mode: '0755'
+  become: yes
   register: starship_install
   when: os_family == "Debian"
 
 - name: Run starship installer (Linux)
   shell: /tmp/starship-install.sh -y
+  become: yes
   when: starship_install.changed
 
 - name: Install starship via Homebrew (macOS)

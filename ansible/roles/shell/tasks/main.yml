@@ -5,6 +5,7 @@
   apt:
     name: zsh
     state: present
+  become: yes
   when: shell == "zsh" and ansible_facts['os_family'] == "Debian"
 
 - name: Install zsh (macOS) -- pre-installed on macOS Catalina+
@@ -22,10 +23,12 @@
   user:
     name: "{{ ansible_user }}"
     shell: /bin/zsh
+  become: yes
   when: shell == "zsh" and current_shell.stdout != "/bin/zsh"
 
 - name: Set default shell to bash (latest)
   user:
     name: "{{ ansible_user }}"
     shell: /bin/bash
+  become: yes
   when: shell == "bash" and current_shell.stdout != "/bin/bash"

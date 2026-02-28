@@ -213,3 +213,4 @@ else
         source ~/.zsh/welcome.zsh
     fi
 fi
+echo "YOOOOO"
