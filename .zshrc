@@ -51,8 +51,13 @@ alias ll='ls -FGlAhp'
 alias la='ls -AG'
 alias l='ls -CFGal'
 alias less='less -FSRXc'
+alias f='open -a Finder ./'
 
 alias RELOAD_ZSHRC='source ~/.zshrc'
+
+
+cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
+
 
 # --- Edit configs ---
 # Determine editor: nano for SSH, sublime for local desktop
