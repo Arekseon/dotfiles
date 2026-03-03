@@ -41,6 +41,9 @@ alias l='ls -CF'
 
 alias RELOAD_BASHRC='source ~/.bashrc'
 
+cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
+
+
 # --- Edit configs ---
 edit() {
     local editor
