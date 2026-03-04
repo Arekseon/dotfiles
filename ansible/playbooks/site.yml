@@ -6,6 +6,7 @@
   gather_facts: true
   vars:
     dotfiles_dir: "{{ lookup('env', 'HOME') }}/dotfiles"
+    dotfiles_repo_url: https://github.com/arekseon/dotfiles.git
   roles:
     - dotfiles
     - packages

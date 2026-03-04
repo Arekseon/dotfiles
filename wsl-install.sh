@@ -22,7 +22,7 @@ fi
 
 echo "==> Running ansible playbook..."
 cd "$HOME/dotfiles/ansible"
-ansible-playbook -i "localhost," playbooks/site.yml -c local --ask-become-pass -e "dotfiles_dir=$HOME/dotfiles"
+ansible-playbook -i "localhost," playbooks/site.yml -c local --ask-become-pass -e "dotfiles_dir=$HOME/dotfiles dotfiles_repo_url=https://github.com/arekseon/dotfiles.git"
 
 echo ""
 echo "==> Done! Restart your shell or run: exec $SHELL"
