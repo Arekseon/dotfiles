@@ -1,4 +1,31 @@
 ---
+ansible_user: pk
+sudo_user: pk
 dotfiles_dir: "{{ lookup('env', 'HOME') }}/dotfiles"
 dotfiles_repo_url: https://github.com/arekseon/dotfiles.git
 shell: zsh
+common_packages:
+  - git
+  - curl
+  - wget
+  - tmux
+  - nano
+  - tree
+mac_packages:
+  - starship
+  - zsh-syntax-highlighting
+  - zsh-autosuggestions
+  - bat
+  - eza
+  - fd
+  - ripgrep
+  - figlet
+  - lolcat
+linux_packages:
+  - build-essential
+  - starship
+  - figlet
+  - lolcat
+  - bat
+  - eza
+  - ripgrep
